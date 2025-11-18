@@ -4,7 +4,6 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Documentation from './pages/Documentation';
-import CaseStudies from './pages/CaseStudies';
 import ResearchPapers from './pages/ResearchPapers';
 import Support from './pages/Support';
 import AboutProject from './pages/AboutProject';
