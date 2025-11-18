@@ -1,11 +1,22 @@
 import React from 'react';
-import { MessageSquare } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { MessageSquare, GraduationCap } from 'lucide-react';
 import '../styles/footer.css';
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
+        {/* College Project Banner */}
+        <div className="footer-project-banner">
+          <div className="footer-project-content">
+            <GraduationCap className="w-6 h-6" />
+            <div className="footer-project-text">
+             
+            </div>
+          </div>
+        </div>
+
         <div className="footer-grid">
           {/* Brand Column */}
           <div className="footer-brand">
@@ -19,7 +30,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="footer-description">
-              The world's most advanced conversational UX research platform. Build chatbots, deploy surveys, analyze results—all in one place.
+              A comprehensive conversational UX research platform developed for academic exploration. Build chatbots, deploy surveys, and analyze user behavior with validated psychometric instruments.
             </p>
             <div className="footer-social">
               {['T', 'L', 'G'].map((social, i) => (
@@ -38,7 +49,7 @@ const Footer = () => {
               <li><a href="#experiments" className="footer-link">Experiments</a></li>
               <li><a href="#chatbot-editor" className="footer-link">Chatbot Editor</a></li>
               <li><a href="#results" className="footer-link">Results</a></li>
-              <li><a href="#settings" className="footer-link">Settings</a></li>
+              
             </ul>
           </div>
 
@@ -46,35 +57,32 @@ const Footer = () => {
           <div className="footer-column">
             <h5 className="footer-column-title">Resources</h5>
             <ul className="footer-links">
-              <li><a href="#" className="footer-link">Documentation</a></li>
-              <li><a href="#" className="footer-link">API Reference</a></li>
-              <li><a href="#" className="footer-link">Templates</a></li>
-              <li><a href="#" className="footer-link">Case Studies</a></li>
-              <li><a href="#" className="footer-link">Support</a></li>
+              <li><Link to="/documentation" className="footer-link">Documentation</Link></li>
+            
+              <li><Link to="/case-studies" className="footer-link">Case Studies</Link></li>
+              <li><Link to="/research-papers" className="footer-link">Research Papers</Link></li>
+              <li><Link to="/support" className="footer-link">Support</Link></li>
             </ul>
           </div>
 
-          {/* Company Column */}
+          {/* About Column */}
           <div className="footer-column">
-            <h5 className="footer-column-title">Company</h5>
+            <h5 className="footer-column-title">About</h5>
             <ul className="footer-links">
-              <li><a href="#" className="footer-link">About Us</a></li>
-              <li><a href="#" className="footer-link">Careers</a></li>
-              <li><a href="#" className="footer-link">Blog</a></li>
-              <li><a href="#" className="footer-link">Press Kit</a></li>
-              <li><a href="#" className="footer-link">Contact</a></li>
+              <li><Link to="/about-project" className="footer-link">About Project</Link></li>
+              <li><Link to="/research-team" className="footer-link">Research Team</Link></li>
+              <li><Link to="/blog" className="footer-link">Blog</Link></li>
+              
+              <li><Link to="/contact" className="footer-link">Contact Us</Link></li>
             </ul>
           </div>
         </div>
 
         {/* Footer Bottom */}
         <div className="footer-bottom">
-          <p className="footer-copyright">© 2025 BotLabX, Inc. All rights reserved.</p>
+          <p className="footer-copyright">© 2025 BotLabX - College Research Project. All rights reserved.</p>
           <div className="footer-legal">
-            <a href="#" className="footer-legal-link">Privacy Policy</a>
-            <a href="#" className="footer-legal-link">Terms of Service</a>
-            <a href="#" className="footer-legal-link">Cookie Policy</a>
-            <a href="#" className="footer-legal-link">Security</a>
+            <Link to="/imprint" className="footer-legal-link">Imprint</Link>
           </div>
         </div>
       </div>
