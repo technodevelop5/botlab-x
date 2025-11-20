@@ -129,50 +129,74 @@ export default function Dashboard() {
 
       <div className="charts-grid">
         <div className="chart-card">
-          <h3>Gender Distribution</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={genderData}
-                cx="50%"
-                cy="50%"
-                outerRadius={80}
-                label
-                dataKey="value"
-              >
-                {genderData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={PIE_COLORS[index]} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
+  <h3>Gender Distribution</h3>
+  <ResponsiveContainer width="100%" height={250}>
+    <PieChart>
+      <defs>
+        {/* Gradient للذكور */}
+        <linearGradient id="maleGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#bfdbfe" stopOpacity={1}/>
+          <stop offset="100%" stopColor="#3b82f6" stopOpacity={1}/>
+        </linearGradient>
+        {/* Gradient للإناث */}
+        <linearGradient id="femaleGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#fbcfe8" stopOpacity={1}/>
+          <stop offset="100%" stopColor="#ec4899" stopOpacity={1}/>
+        </linearGradient>
+      </defs>
+
+      <Pie
+        data={genderData}
+        cx="50%"
+        cy="50%"
+        outerRadius={80}
+        label
+        dataKey="value"
+      >
+        {genderData.map((entry, index) => (
+          <Cell
+            key={`cell-${index}`}
+            fill={index === 0 ? "url(#maleGradient)" : "url(#femaleGradient)"} // 0=Male, 1=Female
+          />
+        ))}
+      </Pie>
+      <Tooltip />
+      <Legend />
+    </PieChart>
+  </ResponsiveContainer>
+</div>
+
 
 <div className="chart-card">
   <h3>Age Group Composition</h3>
   <ResponsiveContainer width="100%" height={250}>
     <BarChart data={ageGroupData}>
+      <defs>
+        <linearGradient id="blueGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#93c5fd" stopOpacity={1}/>
+          <stop offset="100%" stopColor="#2563eb" stopOpacity={1}/>
+        </linearGradient>
+      </defs>
+
       <XAxis dataKey="group" />
       <YAxis />
       <Tooltip />
 
-      <Bar dataKey="value">
-        {ageGroupData.map((entry, index) => (
-          <Cell
-            key={`cell-${index}`}
-            fill={AGE_COLORS[index % AGE_COLORS.length]}
-          />
-        ))}
-      </Bar>
+      <Bar dataKey="value" fill="url(#blueGradient)" />
     </BarChart>
   </ResponsiveContainer>
 </div>
+
 <div className="chart-card">
   <h3>Age Density Distribution</h3>
   <ResponsiveContainer width="100%" height={300}>
     <AreaChart data={ageDensityData}>
+      <defs>
+        <linearGradient id="ageDensityGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#bfdbfe" stopOpacity={0.8}/>
+          <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.2}/>
+        </linearGradient>
+      </defs>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="age" />
       <YAxis />
@@ -180,13 +204,14 @@ export default function Dashboard() {
       <Area
         type="monotone"
         dataKey="density"
-        stroke="#8884d8"
-        fill="#8884d8"
-        fillOpacity={0.4}
+        stroke="#3b82f6"
+        fill="url(#ageDensityGradient)"
+        fillOpacity={1}
       />
     </AreaChart>
   </ResponsiveContainer>
 </div>
+
       </div>
 
       <div className="bottom-grid">
@@ -196,24 +221,29 @@ export default function Dashboard() {
   </div>
 
   <div className="chart-card large">
-    <h3>Top 5 Countries of Origin</h3>
-    <ResponsiveContainer width="100%" height={280}>
-      <BarChart
-        data={topCountriesData}
-        layout="vertical"
-        margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
-      >
-        <XAxis type="number" />
-        <YAxis type="category" dataKey="country" />
-        <Tooltip />
-        <Bar dataKey="value" barSize={20}>
-          {topCountriesData.map((entry, index) => (
-            <Cell key={index} fill={BAR_COLORS[index]} />
-          ))}
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
-  </div>
+  <h3>Top 5 Countries of Origin</h3>
+  <ResponsiveContainer width="100%" height={280}>
+    <BarChart
+      data={topCountriesData}
+      layout="vertical"
+      margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
+    >
+      <defs>
+        <linearGradient id="blueGradientVertical" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#93c5fd" stopOpacity={1}/>
+          <stop offset="100%" stopColor="#2563eb" stopOpacity={1}/>
+        </linearGradient>
+      </defs>
+
+      <XAxis type="number" />
+      <YAxis type="category" dataKey="country" />
+      <Tooltip />
+
+      <Bar dataKey="value" barSize={20} fill="url(#blueGradientVertical)" />
+    </BarChart>
+  </ResponsiveContainer>
+</div>
+
 </div>
 
 
