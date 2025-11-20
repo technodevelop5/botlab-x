@@ -132,60 +132,64 @@ export default function Dashboard() {
   <h3>Gender Distribution</h3>
   <ResponsiveContainer width="100%" height={250}>
     <PieChart>
-      <defs>
-        {/* Gradient للذكور */}
-        <linearGradient id="maleGradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#bfdbfe" stopOpacity={1}/>
-          <stop offset="100%" stopColor="#3b82f6" stopOpacity={1}/>
-        </linearGradient>
-        {/* Gradient للإناث */}
-        <linearGradient id="femaleGradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#fbcfe8" stopOpacity={1}/>
-          <stop offset="100%" stopColor="#ec4899" stopOpacity={1}/>
-        </linearGradient>
-      </defs>
-
       <Pie
         data={genderData}
         cx="50%"
         cy="50%"
+        innerRadius={40} // ثقب الدونات
         outerRadius={80}
-        label
         dataKey="value"
+        label={({ index }) => genderData[index].name} // أسماء الجنسين
+        paddingAngle={3} // مسافة بين الأقسام
       >
-        {genderData.map((entry, index) => (
-          <Cell
-            key={`cell-${index}`}
-            fill={index === 0 ? "url(#maleGradient)" : "url(#femaleGradient)"} // 0=Male, 1=Female
-          />
-        ))}
+        {genderData.map((entry, index) => {
+          const color =
+            entry.name === 'Male'
+              ? `rgba(59, 130, 246, 0.7)` // أزرق متدرج للذكور
+              : `rgba(236, 72, 153, 0.7)`; // زهري متدرج للإناث
+          return <Cell key={`cell-${index}`} fill={color} />;
+        })}
       </Pie>
-      <Tooltip />
+      <Tooltip formatter={(value) => `${value}%`} />
       <Legend />
     </PieChart>
   </ResponsiveContainer>
 </div>
 
 
+
 <div className="chart-card">
   <h3>Age Group Composition</h3>
   <ResponsiveContainer width="100%" height={250}>
-    <BarChart data={ageGroupData}>
-      <defs>
-        <linearGradient id="blueGradient" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#93c5fd" stopOpacity={1}/>
-          <stop offset="100%" stopColor="#2563eb" stopOpacity={1}/>
-        </linearGradient>
-      </defs>
-
-      <XAxis dataKey="group" />
-      <YAxis />
-      <Tooltip />
-
-      <Bar dataKey="value" fill="url(#blueGradient)" />
-    </BarChart>
+    <PieChart>
+      <Pie
+        data={ageGroupData}
+        cx="50%"
+        cy="50%"
+        innerRadius={40} // هذا الثقب الداخلي
+        outerRadius={80} // نصف قطر الخارجي
+        dataKey="value"
+        label={({ index }) => ageGroupData[index].group} // يعرض الأعمار على كل جزء
+        paddingAngle={3} // المسافة بين الأقسام
+      >
+        {ageGroupData.map((entry, index) => (
+          <Cell
+            key={`cell-${index}`}
+            fill={`rgba(59, 130, 246, ${0.3 + index * 0.15})`} // أزرق متدرج
+          />
+        ))}
+      </Pie>
+      <Tooltip 
+        formatter={(value, name, props) => `${value}`} 
+      />
+      <Legend />
+    </PieChart>
   </ResponsiveContainer>
 </div>
+
+
+
+
 
 <div className="chart-card">
   <h3>Age Density Distribution</h3>
