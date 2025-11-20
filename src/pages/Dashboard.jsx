@@ -1,6 +1,8 @@
 import React from 'react';
 import '../styles/dashboard.css';
 import PolygonMap from '../components/PolygonMap';
+import countries from '../data/countries.json';
+import countriesList from '../data/countriesList.json';
 
 
 // Leaflet
@@ -96,64 +98,102 @@ export default function Dashboard() {
         <div className="filter-card">
           <label>Select Region</label>
           <select>
-            <option>All</option>
-          </select>
+    <option value="">All</option>
+    {countriesList.map((country) => (
+      <option key={country.code} value={country.code}>
+        {country.name}
+      </option>
+    ))}
+  </select>
         </div>
       </div>
 
       <div className="cards-grid">
         <div className="stat-card">
-          <p>Total Population (count)</p>
-          <h2>25.2k</h2>
-          <span className="change positive">Previous Period 22.8k (+10.5%)</span>
-        </div>
+  <p>Total Population (count)</p>
+  <h2>
+    25.2k
+    <span className="arrow-up"></span> {/* هذا السهم الأخضر */}
+  </h2>
+  <span className="change positive">Previous Period 22.8k (+10.5%)</span>
+</div>
+
 
         <div className="stat-card">
-          <p>Average Age (years)</p>
-          <h2>36.7</h2>
-          <span className="change positive">Previous Period 35.2 (+4.3%)</span>
-        </div>
+  <p>Average Age (years)</p>
+  <h2>
+    36.7
+    <span className="arrow-up"></span>
+  </h2>
+  <span className="change positive">Previous Period 35.2 (+4.3%)</span>
+</div>
+
 
         <div className="stat-card">
-          <p>Gender Ratio (ratio)</p>
-          <h2>1.05</h2>
-          <span className="change positive">Previous Period 1.02 (+3%)</span>
-        </div>
+  <p>Gender Ratio (ratio)</p>
+  <h2>
+    1.05
+    <span className="arrow-up"></span> {/* استخدم arrow-down إذا انخفض */}
+  </h2>
+  <span className="change positive">Previous Period 1.02 (+3%)</span>
+</div>
+
 
         <div className="stat-card">
-          <p>Top Countries (count)</p>
-          <h2>5</h2>
-          <span className="change positive">Previous Period 4 (+25%)</span>
-        </div>
+  <p>Top Countries (count)</p>
+  <h2>
+    5
+    <span className="arrow-up"></span> {/* استخدم arrow-down إذا انخفض */}
+  </h2>
+  <span className="change positive">Previous Period 4 (+25%)</span>
+</div>
+
       </div>
 
       <div className="charts-grid">
         <div className="chart-card">
   <h3>Gender Distribution</h3>
   <ResponsiveContainer width="100%" height={250}>
-    <PieChart>
-      <Pie
-        data={genderData}
-        cx="50%"
-        cy="50%"
-        innerRadius={40} // ثقب الدونات
-        outerRadius={80}
-        dataKey="value"
-        label={({ index }) => genderData[index].name} // أسماء الجنسين
-        paddingAngle={3} // مسافة بين الأقسام
-      >
-        {genderData.map((entry, index) => {
-          const color =
-            entry.name === 'Male'
-              ? `rgba(59, 130, 246, 0.7)` // أزرق متدرج للذكور
-              : `rgba(236, 72, 153, 0.7)`; // زهري متدرج للإناث
-          return <Cell key={`cell-${index}`} fill={color} />;
-        })}
-      </Pie>
-      <Tooltip formatter={(value) => `${value}%`} />
-      <Legend />
-    </PieChart>
-  </ResponsiveContainer>
+  <PieChart>
+    <Pie
+      data={genderData}
+      cx="50%"
+      cy="50%"
+      innerRadius={50}
+      outerRadius={80}
+      dataKey="value"
+      label={({ name, value, percent }) =>
+        `${name}: ${(percent * 100).toFixed(1)}%`
+      }
+    >
+      {/* Male (Blue Gradient) */}
+      <Cell
+        fill="url(#maleGradient)"
+      />
+
+      {/* Female (Pink Gradient) */}
+      <Cell
+        fill="url(#femaleGradient)"
+      />
+    </Pie>
+
+    {/* Gradients */}
+    <defs>
+      <linearGradient id="maleGradient" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#3b82f6" />
+        <stop offset="100%" stopColor="#93c5fd" />
+      </linearGradient>
+
+      <linearGradient id="femaleGradient" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#ec4899" />
+        <stop offset="100%" stopColor="#f9a8d4" />
+      </linearGradient>
+    </defs>
+
+    <Tooltip />
+    <Legend />
+  </PieChart>
+</ResponsiveContainer>
 </div>
 
 
@@ -161,30 +201,34 @@ export default function Dashboard() {
 <div className="chart-card">
   <h3>Age Group Composition</h3>
   <ResponsiveContainer width="100%" height={250}>
-    <PieChart>
-      <Pie
-        data={ageGroupData}
-        cx="50%"
-        cy="50%"
-        innerRadius={40} // هذا الثقب الداخلي
-        outerRadius={80} // نصف قطر الخارجي
-        dataKey="value"
-        label={({ index }) => ageGroupData[index].group} // يعرض الأعمار على كل جزء
-        paddingAngle={3} // المسافة بين الأقسام
-      >
-        {ageGroupData.map((entry, index) => (
-          <Cell
-            key={`cell-${index}`}
-            fill={`rgba(59, 130, 246, ${0.3 + index * 0.15})`} // أزرق متدرج
-          />
-        ))}
-      </Pie>
-      <Tooltip 
-        formatter={(value, name, props) => `${value}`} 
-      />
-      <Legend />
-    </PieChart>
-  </ResponsiveContainer>
+  <PieChart>
+    <Pie
+      data={ageGroupData}
+      cx="50%"
+      cy="50%"
+      innerRadius={40}
+      outerRadius={80}
+      dataKey="value"
+      paddingAngle={3}
+      label={({ index, percent }) =>
+        `${ageGroupData[index].group} (${(percent * 100).toFixed(1)}%)`
+      }
+      labelLine={false}
+    >
+      {ageGroupData.map((entry, index) => (
+        <Cell
+          key={`cell-${index}`}
+          fill={`rgba(59, 130, 246, ${0.3 + index * 0.15})`}
+        />
+      ))}
+    </Pie>
+
+    <Tooltip formatter={(value) => `${value}`} />
+    <Legend />
+  </PieChart>
+</ResponsiveContainer>
+
+
 </div>
 
 
