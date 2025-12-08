@@ -1,4 +1,4 @@
-name: Auto Mirror to GitLab
+name: .github/workflows/mirror.yml
 
 on:
   push:
