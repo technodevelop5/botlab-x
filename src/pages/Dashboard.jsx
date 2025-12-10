@@ -238,9 +238,9 @@ export default function Dashboard() {
 <div className="chart-card">
   <h3>Age Density Distribution</h3>
   <ResponsiveContainer width="100%" height={300}>
-    <ResponsiveContainer width="100%" height={300}>
-  <BarChart data={ageDensityData} margin={{ top: 20, right: 20, left: 0, bottom: 20 }}>
-    
+   <ResponsiveContainer width="100%" height={300}>
+  <BarChart data={ageDensityData} margin={{ top: 20, right: 20, left: 50, bottom: 50 }}>
+
     {/* Gradient */}
     <defs>
       <linearGradient id="ageDensityGradient" x1="0" y1="0" x2="0" y2="1">
@@ -250,8 +250,34 @@ export default function Dashboard() {
     </defs>
 
     <CartesianGrid strokeDasharray="3 3" />
+
+    {/* محور X */}
     <XAxis dataKey="age" />
+
+    {/* عنوان محور X */}
+    <text
+      x="50%"
+      y={300 - 20}   // مكان مضبوط داخل الإطار
+      textAnchor="middle"
+      style={{ fontSize: 14, fill: "#1e293b", fontWeight: 500 }}
+    >
+      Age (years)
+    </text>
+
+    {/* محور Y */}
     <YAxis />
+
+    {/* عنوان محور Y */}
+    <text
+      x={15}         // يمين شوي حتى يصير واضح
+      y={150}
+      textAnchor="middle"
+      transform="rotate(-90, 15, 150)"
+      style={{ fontSize: 14, fill: "#1e293b", fontWeight: 500 }}
+    >
+      Population Density (persons)
+    </text>
+
     <Tooltip formatter={(value) => `${value} persons`} />
 
     <Bar
@@ -262,6 +288,8 @@ export default function Dashboard() {
     />
   </BarChart>
 </ResponsiveContainer>
+
+
 
   </ResponsiveContainer>
 </div>
