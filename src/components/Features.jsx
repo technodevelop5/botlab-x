@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GitBranch, PieChart, Users, Target, MessageSquare, Zap, BarChart3, Code, Layers, Shield, TrendingUp, Globe, Award, Star, ArrowRight } from 'lucide-react';
+import { GitBranch, PieChart, Users, Target, MessageSquare, Zap, BarChart3, Code, Layers, Shield, TrendingUp, Globe, Award, Star, ArrowRight, FileCheck } from 'lucide-react';
 import '../styles/features.css';
 
 const Features = () => {
@@ -126,8 +126,43 @@ const Features = () => {
     }
   ];
 
-  const integrations = [
-    "Figma", "Slack", "Notion", "Jira", "Google Analytics", "Zapier", "Airtable", "Miro"
+  const researchInstruments = [
+    {
+      name: "System Usability Scale",
+      abbr: "SUS",
+      description: "Industry-standard 10-item questionnaire for measuring perceived usability",
+      questions: "10 items"
+    },
+    {
+      name: "Computer Usability Questionnaire",
+      abbr: "CUQ",
+      description: "Comprehensive evaluation of user satisfaction and system effectiveness",
+      questions: "20 items"
+    },
+    {
+      name: "AttrakDiff",
+      abbr: "AD",
+      description: "Measures pragmatic and hedonic quality of interactive products",
+      questions: "28 items"
+    },
+    {
+      name: "NASA Task Load Index",
+      abbr: "TLX",
+      description: "Multi-dimensional assessment of perceived workload",
+      questions: "6 dimensions"
+    },
+    {
+      name: "User Experience Questionnaire",
+      abbr: "UEQ",
+      description: "Comprehensive UX assessment across multiple dimensions",
+      questions: "26 items"
+    },
+    {
+      name: "Post-Study System Usability",
+      abbr: "PSSUQ",
+      description: "Evaluates user satisfaction with system usability",
+      questions: "16 items"
+    }
   ];
 
   return (
@@ -247,19 +282,29 @@ const Features = () => {
         </div>
       </section>
 
-      {/* Integrations */}
-      <section className="integrations-section">
-        <div className="integrations-container">
-          <h2 className="integrations-title">
-            Seamless Integration with Your Stack
-          </h2>
-          <p className="integrations-subtitle">
-            Connect with the tools you already use every day
-          </p>
-          <div className="integrations-grid">
-            {integrations.map((tool, i) => (
-              <div key={i} className="integration-card">
-                {tool}
+      
+
+      {/* Research Instruments */}
+      <section className="instruments-section">
+        <div className="instruments-container">
+          <div className="instruments-header">
+            <div className="instruments-badge">VALIDATED INSTRUMENTS</div>
+            <h2 className="instruments-title">
+              Research-Grade Questionnaires
+            </h2>
+            <p className="instruments-subtitle">
+              Industry-standard psychometric instruments validated by academic research
+            </p>
+          </div>
+          <div className="instruments-grid">
+            {researchInstruments.map((instrument, i) => (
+              <div key={i} className="instrument-card">
+                <div className="instrument-header">
+                  <div className="instrument-abbr">{instrument.abbr}</div>
+                  <div className="instrument-questions">{instrument.questions}</div>
+                </div>
+                <h4 className="instrument-name">{instrument.name}</h4>
+                <p className="instrument-description">{instrument.description}</p>
               </div>
             ))}
           </div>
