@@ -459,19 +459,36 @@
   line-height: 1.75;
 }
 
-/* Integrations Section */
-.integrations-section {
+/* Integrations Section - REMOVED */
+
+/* Research Instruments Section */
+.instruments-section {
   padding: 6rem 1.5rem;
   background: white;
-  text-align: center;
 }
 
-.integrations-container {
+.instruments-container {
   max-width: 1280px;
   margin: 0 auto;
 }
 
-.integrations-title {
+.instruments-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.instruments-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #f0fdf4;
+  color: #15803d;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.instruments-title {
   font-size: 2.5rem;
   font-weight: 700;
   color: #0f172a;
@@ -479,38 +496,87 @@
 }
 
 @media (min-width: 768px) {
-  .integrations-title {
+  .instruments-title {
     font-size: 3rem;
   }
 }
 
-.integrations-subtitle {
-  font-size: 1.25rem;
+.instruments-subtitle {
+  font-size: 1.125rem;
   color: #64748b;
-  margin-bottom: 3rem;
+  max-width: 42rem;
+  margin: 0 auto;
 }
 
-.integrations-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+.instruments-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
-.integration-card {
-  padding: 0.75rem 1.5rem;
-  background: #f8fafc;
+@media (min-width: 640px) {
+  .instruments-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .instruments-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.instrument-card {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
   border: 2px solid #e2e8f0;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  color: #475569;
-  transition: all 0.2s ease;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
 }
 
-.integration-card:hover {
+.instrument-card:hover {
   border-color: #3b82f6;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
   transform: translateY(-2px);
+  background: white;
+}
+
+.instrument-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.instrument-abbr {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2563eb, #9333ea);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.instrument-questions {
+  font-size: 0.75rem;
+  color: #64748b;
+  background: #e2e8f0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.instrument-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.instrument-description {
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.6;
 }
 
 /* Testimonials Section */
